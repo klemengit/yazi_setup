@@ -1,0 +1,12 @@
+[opener]
+open-okular = [
+  { run = "okular %s", orphan = true, desc = "Okular" },
+]
+open-evince = [
+  { run = "evince %s", orphan = true, desc = "Document Viewer" },
+]
+
+[open]
+prepend_rules = [
+  { mime = "application/pdf", use = ["open-evince", "open-okular"] },
+]

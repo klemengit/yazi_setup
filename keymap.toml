@@ -1,0 +1,45 @@
+# ~/.config/yazi/keymap.toml
+[mgr]
+prepend_keymap = [
+    { on = [ "q" ], run = "plugin autosession -- save-and-quit", desc = "Save session and quit" },
+    { on = [ "g", "h" ], run = "cd ~",              desc = "Go to home" },
+    { on = [ "g", "c" ], run = "cd ~/.config",      desc = "Go to config" },
+    { on = [ "g", "d" ], run = "cd ~/Downloads",    desc = "Go to Downloads" },
+    { on = [ "g", "D" ], run = "cd ~/Data",         desc = "Go to Data" },
+    { on = [ "g", "p" ], run = "cd ~/projects",     desc = "Go to projects" },
+    { on = [ "M" ],      run = "plugin mount",       desc = "Open mount manager" },
+    {
+        on   = [ "z", "e" ],
+        desc = "Extract archive (create subfolder if needed)",
+        run  = '''shell '
+name=$(basename -- "%0")
+dir=$(dirname -- "%0")
+stem="${name%.tar.gz}"; stem="${stem%.tar.bz2}"; stem="${stem%.tar.xz}"
+stem="${stem%.tgz}";    stem="${stem%.zip}";     stem="${stem%.tar}"
+case "%0" in
+  *.zip)        tops=$(unzip -Z1 "%0" 2>/dev/null | cut -d/ -f1 | sort -u) ;;
+  *.tar*|*.tgz) tops=$(tar -tf  "%0" 2>/dev/null | cut -d/ -f1 | sort -u) ;;
+  *) echo "Unsupported archive format: %0"; exit 1 ;;
+esac
+n=$(printf "%s\n" "$tops" | grep -c .)
+if [ "$n" -eq 1 ]; then
+  dest="$dir"
+else
+  dest="$dir/$stem"
+  mkdir -p -- "$dest"
+fi
+case "%0" in
+  *.zip)            unzip    "%0" -d "$dest" ;;
+  *.tar.gz|*.tgz)  tar -xzf "%0" -C "$dest" ;;
+  *.tar.bz2)       tar -xjf "%0" -C "$dest" ;;
+  *.tar.xz)        tar -xJf "%0" -C "$dest" ;;
+  *.tar)           tar -xf  "%0" -C "$dest" ;;
+esac
+' --block''',
+    },
+    {
+        on   = [ "z", "a" ],
+        desc = "Zip selected files",
+        run  = '''shell 'zip -r "%1.zip" %@' --block''',
+    },
+]
