@@ -1,3 +1,11 @@
+[plugin]
+prepend_previewers = [
+  { mime = "text/*", run = "code", max_size = 524288 },  # syntax highlight up to 512KB
+  { mime = "text/*", run = "noop" },                     # large text files
+  { name = "*/",     run = "noop" },                     # directories
+  { mime = "*/*",    run = "noop" },                     # everything else
+]
+
 [opener]
 open-okular = [
   { run = "okular %s", orphan = true, desc = "Okular" },
