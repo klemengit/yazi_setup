@@ -8,6 +8,8 @@ prepend_keymap = [
     { on = [ "g", "D" ], run = "cd ~/Data",         desc = "Go to Data" },
     { on = [ "g", "p" ], run = "cd ~/Data/Projekti",     desc = "Go to projects" },
     { on = [ "g", "r" ], run = "cd ~/RemminaShareFolder",     desc = "Go to RemminaShareFolder" },
+    { on = "H", run = "tab_switch -1 --relative", desc = "Switch to previous tab" },
+    { on = "L", run = "tab_switch 1 --relative",  desc = "Switch to next tab" },
     { on = [ "M" ],      run = "plugin mount",       desc = "Open mount manager" },
     {
         on   = [ "z", "e" ],
