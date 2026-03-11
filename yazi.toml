@@ -13,8 +13,15 @@ open-okular = [
 open-evince = [
   { run = "evince %s", orphan = true, desc = "Document Viewer" },
 ]
+open-inkscape = [
+  { run = "inkscape %s", orphan = true, desc = "Inkscape" },
+]
+open-eog = [
+  { run = "eog %s", orphan = true, desc = "Image Viewer" },
+]
 
 [open]
 prepend_rules = [
+  { mime = "image/svg+xml", use = ["open-inkscape", "open-eog"] },
   { mime = "application/pdf", use = ["open-evince", "open-okular"] },
 ]
