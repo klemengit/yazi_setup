@@ -19,9 +19,13 @@ open-inkscape = [
 open-eog = [
   { run = "eog %s", orphan = true, desc = "Image Viewer" },
 ]
+open-freecad = [
+  { run = "flatpak run org.freecad.FreeCAD %s", orphan = true, desc = "FreeCAD" },
+]
 
 [open]
 prepend_rules = [
   { mime = "image/svg+xml", use = ["open-inkscape", "open-eog"] },
+  { url = "*.FCStd", use = ["open-freecad"] },
   { mime = "application/pdf", use = ["open-evince", "open-okular"] },
 ]
