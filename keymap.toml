@@ -1,7 +1,6 @@
 # ~/.config/yazi/keymap.toml
 [mgr]
 prepend_keymap = [
-    { on = [ "q" ], run = "plugin autosession -- save-and-quit", desc = "Save session and quit" },
     { on = [ "g", "h" ], run = "cd ~",              desc = "Go to home" },
     { on = [ "g", "c" ], run = "cd ~/.config",      desc = "Go to config" },
     { on = [ "g", "d" ], run = "cd ~/Downloads",    desc = "Go to Downloads" },
